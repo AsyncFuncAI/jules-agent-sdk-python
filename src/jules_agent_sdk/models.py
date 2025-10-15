@@ -200,6 +200,7 @@ class Session:
     name: str = ""
     id: str = ""
     title: str = ""
+    automation_mode: Optional[str] = None
     require_plan_approval: bool = False
     create_time: str = ""
     update_time: str = ""
@@ -228,6 +229,7 @@ class Session:
             prompt=data.get("prompt", ""),
             source_context=source_context,
             title=data.get("title", ""),
+            automation_mode=data.get("automationMode"),
             require_plan_approval=data.get("requirePlanApproval", False),
             create_time=data.get("createTime", ""),
             update_time=data.get("updateTime", ""),
@@ -246,6 +248,8 @@ class Session:
             result["name"] = self.name
         if self.title:
             result["title"] = self.title
+        if self.automation_mode:
+            result["automationMode"] = self.automation_mode
         if self.require_plan_approval:
             result["requirePlanApproval"] = self.require_plan_approval
         if self.outputs:

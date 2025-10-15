@@ -30,6 +30,7 @@ class SessionsAPI:
         starting_branch: Optional[str] = None,
         title: Optional[str] = None,
         require_plan_approval: bool = False,
+        automation_mode: Optional[str] = None,
     ) -> Session:
         """Create a new session.
 
@@ -39,6 +40,7 @@ class SessionsAPI:
             starting_branch: Optional starting branch for GitHub repos
             title: Optional session title
             require_plan_approval: If True, plans require explicit approval
+            automation_mode: Optional automation mode (e.g., "AUTO_CREATE_PR")
 
         Returns:
             Created Session object
@@ -65,6 +67,9 @@ class SessionsAPI:
 
         if require_plan_approval:
             data["requirePlanApproval"] = require_plan_approval
+
+        if automation_mode:
+            data["automationMode"] = automation_mode
 
         response = self.client.post("sessions", json=data)
         return Session.from_dict(response)

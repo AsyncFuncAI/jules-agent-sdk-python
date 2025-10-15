@@ -48,6 +48,34 @@ class TestJulesClient:
         mock_request.assert_called_once()
 
     @patch("jules_agent_sdk.base.BaseClient._request")
+    def test_sessions_create_with_automation_mode(self, mock_request):
+        """Test session creation with automation mode."""
+        mock_request.return_value = {
+            "name": "sessions/test456",
+            "id": "test456",
+            "prompt": "Auto PR feature",
+            "sourceContext": {"source": "sources/repo2"},
+            "state": "QUEUED",
+            "automationMode": "AUTO_CREATE_PR",
+        }
+
+        client = JulesClient(api_key="test-api-key")
+        session = client.sessions.create(
+            prompt="Auto PR feature",
+            source="sources/repo2",
+            automation_mode="AUTO_CREATE_PR",
+        )
+
+        assert session.id == "test456"
+        assert session.automation_mode == "AUTO_CREATE_PR"
+
+        # Verify that automationMode was included in the request data
+        mock_request.assert_called_once()
+        _name, _args, kwargs = mock_request.mock_calls[0]
+        assert "json" in kwargs
+        assert kwargs["json"]["automationMode"] == "AUTO_CREATE_PR"
+
+    @patch("jules_agent_sdk.base.BaseClient._request")
     def test_sessions_get(self, mock_request):
         """Test getting a session."""
         mock_request.return_value = {
