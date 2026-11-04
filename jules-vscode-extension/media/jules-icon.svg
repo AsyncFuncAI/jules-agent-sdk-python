@@ -1,0 +1,8 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Simple icon for Jules Agent -->
+  <circle cx="64" cy="64" r="60" fill="#4285F4"/>
+  <path d="M40 50 Q64 30 88 50" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <circle cx="48" cy="58" r="6" fill="white"/>
+  <circle cx="80" cy="58" r="6" fill="white"/>
+  <path d="M45 75 Q64 85 83 75" stroke="white" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

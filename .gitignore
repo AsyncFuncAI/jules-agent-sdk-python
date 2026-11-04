@@ -72,3 +72,14 @@ dmypy.json
 
 # PyCharm
 .idea/
+
+# Held back by the 2026-11-04 Mac save (not committed)
+/.venv/
+/brag_parallel_fix.py
+/documentation_factory.py
+/jules-vscode-extension/src/chatView.ts
+/jules-vscode-extension/src/extension.ts
+/jules-vscode-extension/src/julesClient.ts
+/jules-vscode-extension/src/julesPanel.ts
+/jules-vscode-extension/src/providers/codeActionProvider.ts
+/simple_jules.py

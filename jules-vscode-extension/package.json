@@ -1,0 +1,169 @@
+{
+  "name": "jules-agent",
+  "displayName": "Jules Agent",
+  "description": "AI-powered coding assistant using Jules API",
+  "version": "0.1.0",
+  "publisher": "jules-agent",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Machine Learning",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "assistant",
+    "jules",
+    "code-generation",
+    "refactoring"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "jules.startSession",
+        "title": "Jules: Start New Session",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "jules.openChat",
+        "title": "Jules: Open Panel",
+        "icon": "$(comment)"
+      },
+      {
+        "command": "jules.listSessions",
+        "title": "Jules: List Sessions"
+      },
+      {
+        "command": "jules.approvePlan",
+        "title": "Jules: Approve Plan"
+      },
+      {
+        "command": "jules.refreshActivities",
+        "title": "Jules: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "jules.stopSession",
+        "title": "Jules: Stop Session"
+      },
+      {
+        "command": "jules.openSettings",
+        "title": "Jules: Open Settings"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "jules-sidebar",
+          "title": "Jules Agent",
+          "icon": "media/jules-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "jules-sidebar": [
+        {
+          "id": "jules.mainView",
+          "name": "Jules",
+          "type": "webview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Jules Agent",
+      "properties": {
+        "jules.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Jules API Key (leave empty to use JULES_API_KEY environment variable)",
+          "markdownDescription": "Your Jules API key. Get it from [Jules Dashboard](https://jules.google.com)"
+        },
+        "jules.baseUrl": {
+          "type": "string",
+          "default": "https://jules.googleapis.com/v1alpha",
+          "description": "Jules API base URL"
+        },
+        "jules.autoApprovePlans": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically approve plans without user confirmation"
+        },
+        "jules.pythonPath": {
+          "type": "string",
+          "default": "python3",
+          "description": "Path to Python executable"
+        },
+        "jules.sessionTimeout": {
+          "type": "number",
+          "default": 600,
+          "description": "Session timeout in seconds",
+          "minimum": 60,
+          "maximum": 3600
+        },
+        "jules.pollInterval": {
+          "type": "number",
+          "default": 5,
+          "description": "Session polling interval in seconds",
+          "minimum": 1,
+          "maximum": 30
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "jules.refreshActivities",
+          "when": "view == jules.mainView",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "jules.startSession",
+          "when": "true"
+        },
+        {
+          "command": "jules.openChat",
+          "when": "true"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@vscode/webview-ui-toolkit": "^1.4.0"
+  }
+}
